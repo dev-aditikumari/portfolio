@@ -27,6 +27,7 @@ export const skillGroups: SkillGroup[] = [
     name: "Testing & DevOps",
     skills: ["Jest", "React Testing Library", "pytest", "Git", "GitHub Actions", "CI/CD", "Docker", "Postman"],
   },
+  { name: "Cloud & Data", skills: ["Microsoft Azure", "Azure Data Factory", "Microsoft Fabric", "PySpark"] },
   {
     name: "Fundamentals",
     skills: ["DSA", "OOP", "DBMS", "Operating Systems", "Computer Networks", "System Design"],

@@ -164,7 +164,7 @@ describe("Hero and marquee", () => {
     const { container } = render(<Marquee />);
     const bands = container.querySelectorAll('[aria-hidden="true"]');
     expect(bands.length).toBe(2);
-    expect(container.textContent).toContain("MERN");
+    expect(container.textContent).toContain("Backend");
   });
 });
 
