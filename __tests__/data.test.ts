@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { education, experience } from "@/data/background";
+import { achievements, education, experience } from "@/data/background";
 import { navItems } from "@/data/nav";
 import { profile } from "@/data/profile";
 import { areaEvidence, categoryLabels, projects } from "@/data/projects";
-import { skillChips, skillGroups } from "@/data/skills";
+import { skillGroups, skillIcons } from "@/data/skills";
 import { knownIcons } from "@/components/Icon";
 
 function isHttpsUrl(value: string): boolean {
@@ -74,9 +74,15 @@ describe("projects data", () => {
     }
   });
 
-  it("links only the projects whose repositories are public", () => {
-    const withoutLink = projects.filter((p) => !p.codeUrl).map((p) => p.slug);
-    expect(withoutLink).toEqual(["dsa-cpp"]);
+  it("gives every project a GitHub link", () => {
+    expect(projects.filter((p) => !p.codeUrl)).toEqual([]);
+    expect(projects.find((p) => p.slug === "dsa-cpp")?.codeUrl).toBe("https://github.com/dev-aditikumari/dsa-cpp");
+  });
+
+  it("lists exactly the eleven presentable projects", () => {
+    expect(projects.map((p) => p.slug).sort()).toEqual(
+      ["academic-insight-engine","devops-notes-service","dsa-cpp","festival-sales","lets-talk","nextmeet","react-implementations","shopper","skillora","sql-practice","zink"].sort(),
+    );
   });
 
   it("keeps Zink and NextMeet as separate projects with their own repositories", () => {
@@ -91,6 +97,7 @@ describe("projects data", () => {
     const dsa = projects.find((p) => p.slug === "dsa-cpp");
     expect(dsa?.stack).toEqual(["C++"]);
     expect(JSON.stringify(dsa)).not.toMatch(/typescript/i);
+    expect(dsa?.summary).toBe("Data structures and algorithms in C++.");
   });
 
   it("uses unique slugs", () => {
@@ -109,10 +116,32 @@ describe("skills data", () => {
     }
   });
 
-  it("has an icon for every skill chip and no duplicate chips", () => {
-    for (const chip of skillChips) expect(knownIcons).toContain(chip.icon);
-    const names = skillChips.map((c) => c.name);
-    expect(new Set(names).size).toBe(names.length);
+  it("maps icons only to known icon keys and to skills that exist", () => {
+    const all = skillGroups.flatMap((g) => g.skills);
+    for (const [skill, icon] of Object.entries(skillIcons)) {
+      expect(all).toContain(skill);
+      expect(knownIcons).toContain(icon);
+    }
+  });
+
+  it("has the seven resume groups in order", () => {
+    expect(skillGroups.map((g) => g.name)).toEqual([
+      "Languages",
+      "Backend & APIs",
+      "Databases",
+      "Testing & DevOps",
+      "Frontend",
+      "Cloud & Data",
+      "Fundamentals",
+    ]);
+  });
+
+  it("does not link work-only Azure and Spark skills to a project", () => {
+    const cloud = skillGroups.find((g) => g.name === "Cloud & Data");
+    expect(cloud?.note).toMatch(/not in my public repositories/);
+    for (const skill of ["Azure Data Factory", "Microsoft Fabric", "PySpark"]) {
+      expect(projects.some((p) => p.stack.includes(skill))).toBe(false);
+    }
   });
 
   it("has no duplicate skills inside a group", () => {
@@ -135,6 +164,17 @@ describe("profile data", () => {
     for (const link of profile.links) expect(isHttpsUrl(link.url)).toBe(true);
   });
 
+  it("has the owner's profile links and email", () => {
+    const byLabel = Object.fromEntries(profile.links.map((l) => [l.label, l.url]));
+    expect(byLabel).toEqual({
+      GitHub: "https://github.com/dev-aditikumari",
+      LinkedIn: "https://www.linkedin.com/in/aditikumari35355/",
+      LeetCode: "https://leetcode.com/u/dev-aditikumari/",
+      CodeChef: "https://www.codechef.com/users/devaditikumari",
+    });
+    expect(profile.email).toBe("aditikumari35355@gmail.com");
+  });
+
   it("does not contain a phone number", () => {
     const text = collectStrings(profile).join(" ");
     expect(text).not.toMatch(/\+?\d[\d\s-]{8,}\d/);
@@ -147,9 +187,38 @@ describe("profile data", () => {
   });
 });
 
+describe("recruiter content", () => {
+  it("states availability and has the resume facts", () => {
+    expect(profile.availability).toBe("Immediate joiner");
+    const text = profile.facts.map((f) => `${f.label} ${f.value}`).join(" ");
+    expect(text).toMatch(/MAQ Software/);
+    expect(text).toMatch(/8\.28/);
+    expect(text).toMatch(/1500\+/);
+  });
+
+  it("has both MAQ Software roles with bullet points", () => {
+    const maq = experience.filter((e) => e.organization === "MAQ Software");
+    expect(maq.map((e) => e.role)).toEqual(["Software Engineer I", "Associate Software Engineer"]);
+    for (const e of maq) expect(e.points.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("lists the three achievements", () => {
+    expect(achievements.map((a) => a.title)).toEqual([
+      "LeetCode Global Rank 5303",
+      "CodeChef Global Rank 1134",
+      "1500+ problems solved",
+    ]);
+  });
+
+  it("has no pricing, freelance or hire-me-for-money wording", () => {
+    const text = collectStrings([profile, projects, skillGroups, education, experience, achievements]).join(" ");
+    expect(text).not.toMatch(/pricing|per month|freelanc|rates|quote/i);
+  });
+});
+
 describe("placeholder text", () => {
   it("does not appear in any data string", () => {
-    const all = collectStrings([profile, projects, skillGroups, skillChips, education, experience, navItems]);
+    const all = collectStrings([profile, projects, skillGroups, education, experience, achievements, navItems]);
     expect(all.length).toBeGreaterThan(0);
     for (const text of all) {
       expect(text).not.toMatch(/lorem/i);

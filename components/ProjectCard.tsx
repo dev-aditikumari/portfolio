@@ -54,7 +54,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         <div className="mt-auto flex flex-wrap gap-3">
           {project.codeUrl && (
             <a href={project.codeUrl} className="btn-outline" target="_blank" rel="noopener noreferrer">
-              Source Code<span className="sr-only"> of {project.name}</span>
+              GitHub<span className="sr-only"> repository of {project.name}</span>
             </a>
           )}
           {project.liveUrl && (

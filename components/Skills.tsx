@@ -1,28 +1,31 @@
-import { skillChips, skillGroups } from "@/data/skills";
+import { skillGroups, skillIcons } from "@/data/skills";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
-import { SkillsList } from "./SkillsList";
 
 export function Skills() {
   return (
     <Section id="skills" title="Skills" tone="navy">
-      <ul aria-label="Tools and technologies I have used in my projects" className="flex flex-wrap gap-3">
-        {skillChips.map((chip) => (
-          <li
-            key={chip.name}
-            className="flex items-center gap-2 rounded border border-edge bg-panel px-3 py-2 text-sm text-white"
-          >
-            <Icon name={chip.icon} className="h-4 w-4 text-quiet" />
-            {chip.name}
-          </li>
+      <div className="grid gap-8 md:grid-cols-2">
+        {skillGroups.map((group, index) => (
+          <div key={group.name} role="group" aria-labelledby={`skills-group-${index}`}>
+            <h3 id={`skills-group-${index}`} className="mb-3 text-lg font-semibold text-white">
+              {group.name}
+            </h3>
+            <ul className="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <li
+                  key={skill}
+                  className="flex items-center gap-2 rounded border border-edge bg-panel px-3 py-2 text-sm text-white"
+                >
+                  <Icon name={skillIcons[skill] ?? "code"} className="h-4 w-4 text-quiet" />
+                  {skill}
+                </li>
+              ))}
+            </ul>
+            {group.note && <p className="mt-2 text-sm text-quiet">{group.note}</p>}
+          </div>
         ))}
-      </ul>
-      <details className="mt-10 max-w-3xl">
-        <summary className="cursor-pointer text-white underline underline-offset-4">Full skill list by area</summary>
-        <div className="mt-5">
-          <SkillsList groups={skillGroups} />
-        </div>
-      </details>
+      </div>
     </Section>
   );
 }

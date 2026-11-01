@@ -25,11 +25,17 @@ export type Project = {
 export type SkillGroup = {
   name: string;
   skills: string[];
+  note?: string;
 };
 
-export type SkillChip = {
-  name: string;
-  icon: string;
+export type Fact = {
+  label: string;
+  value: string;
+};
+
+export type Achievement = {
+  title: string;
+  detail: string;
 };
 
 export type EducationItem = {
@@ -45,7 +51,8 @@ export type ExperienceItem = {
   role: string;
   location: string;
   period: string;
-  description: string;
+  kind: "work" | "volunteer";
+  points: string[];
 };
 
 export type Profile = {
@@ -55,6 +62,9 @@ export type Profile = {
   headline: string;
   about: string[];
   email: string;
+  availability: string;
+  location: string;
+  facts: Fact[];
   siteUrl: string;
   resumePath: string;
   marqueeTop: string[];

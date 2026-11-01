@@ -5,16 +5,16 @@ import { categoryLabels } from "@/data/projects";
 import type { Project, ProjectCategory } from "@/data/types";
 import { ProjectCard } from "./ProjectCard";
 
-type Filter = "latest" | ProjectCategory;
+type Filter = "all" | ProjectCategory;
 
 const filters: { id: Filter; label: string }[] = [
-  { id: "latest", label: "Latest" },
+  { id: "all", label: "All" },
   ...(Object.keys(categoryLabels) as ProjectCategory[]).map((id) => ({ id, label: categoryLabels[id] })),
 ];
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState<Filter>("latest");
-  const visible = filter === "latest" ? projects : projects.filter((p) => p.categories.includes(filter));
+  const [filter, setFilter] = useState<Filter>("all");
+  const visible = filter === "all" ? projects : projects.filter((p) => p.categories.includes(filter));
 
   return (
     <div>

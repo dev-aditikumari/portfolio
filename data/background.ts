@@ -1,4 +1,4 @@
-import type { EducationItem, ExperienceItem } from "./types";
+import type { Achievement, EducationItem, ExperienceItem } from "./types";
 
 export const education: EducationItem[] = [
   {
@@ -30,31 +30,48 @@ export const experience: ExperienceItem[] = [
     role: "Software Engineer I",
     location: "Noida, India",
     period: "July 2026 to present",
-    description:
-      "Production data workflows and REST API integrations for a US financial-services engagement. Wrote a SQL schema comparison report that found more than 60 cross-database differences, and pytest unit tests for pipeline utilities under an 85% line-coverage gate. Build React components with Redux Toolkit and Tailwind CSS.",
+    kind: "work",
+    points: [
+      "Work on production data workflows and REST API integrations for a US financial-services engagement.",
+      "Wrote a SQL schema comparison report that found more than 60 cross-database differences.",
+      "Wrote pytest unit tests for pipeline utilities under an 85% line-coverage gate.",
+      "Build React components with Redux Toolkit and Tailwind CSS.",
+    ],
   },
   {
     organization: "MAQ Software",
     role: "Associate Software Engineer",
     location: "Noida, India",
     period: "January 2026 to June 2026",
-    description:
-      "Built Azure Data Factory pipelines with dynamic MERGE logic, designed a SQL-based KPI validation framework with more than 30 parameterised test cases, and wrote PySpark notebooks on Microsoft Fabric.",
+    kind: "work",
+    points: [
+      "Built Azure Data Factory pipelines with dynamic MERGE logic.",
+      "Designed a SQL-based KPI validation framework with more than 30 parameterised test cases.",
+      "Wrote PySpark notebooks on Microsoft Fabric.",
+    ],
   },
   {
     organization: "WeCan, NIT Agartala",
     role: "Curriculum Lead",
     location: "Agartala, India",
     period: "January 2023 to present",
-    description:
+    kind: "volunteer",
+    points: [
       "Lead educational initiatives of the non-profit WeCan society by volunteering to teach underprivileged children and support their learning.",
+    ],
   },
   {
     organization: "MUNSOC",
     role: "Member",
     location: "Agartala, India",
     period: "July 2023 to present",
-    description:
-      "Took part in more than 3 Model United Nations conferences, including sessions on soft skills and communication.",
+    kind: "volunteer",
+    points: ["Took part in more than 3 Model United Nations conferences, including sessions on soft skills and communication."],
   },
+];
+
+export const achievements: Achievement[] = [
+  { title: "LeetCode Global Rank 5303", detail: "Weekly Contest 401" },
+  { title: "CodeChef Global Rank 1134", detail: "Starter 111, Division" },
+  { title: "1500+ problems solved", detail: "Data structures and algorithms practice" },
 ];

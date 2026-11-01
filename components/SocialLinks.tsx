@@ -1,8 +1,9 @@
 import { FaEnvelope, FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import type { IconType } from "react-icons";
+import { SiCodechef, SiLeetcode } from "react-icons/si";
 import { profile } from "@/data/profile";
 
-const iconFor: Record<string, IconType> = { GitHub: FaGithub, LinkedIn: FaLinkedinIn };
+const iconFor: Record<string, IconType> = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, LeetCode: SiLeetcode, CodeChef: SiCodechef };
 
 export function SocialLinks() {
   const items = [

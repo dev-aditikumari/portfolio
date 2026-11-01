@@ -124,10 +124,11 @@ export const projects: Project[] = [
   {
     slug: "dsa-cpp",
     name: "DSA in C++",
-    summary: "Data structures and algorithms in C++. The repository is private, so there is no source link.",
+    summary: "Data structures and algorithms in C++.",
     stack: ["C++"],
     categories: ["backend-data"],
     areas: [],
+    codeUrl: `${gh}/dsa-cpp`,
   },
 ];
 

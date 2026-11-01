@@ -13,6 +13,7 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-3 text-lg font-medium text-white">Let&apos;s build together</p>
+          <p className="mt-1 text-sm text-quiet">Available to join immediately</p>
         </div>
         <nav aria-label="Footer">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">Explore</h2>

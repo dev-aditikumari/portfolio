@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import { Availability } from "./Availability";
 import { SocialLinks } from "./SocialLinks";
 
 export function Hero() {
@@ -15,11 +16,19 @@ export function Hero() {
           {profile.role}
         </div>
         <p className="mt-6 max-w-2xl text-lg text-copy">{profile.headline}</p>
-        <div className="mt-8 flex flex-wrap items-center gap-6">
-          <SocialLinks />
-          <a href="#projects" className="btn-solid">
-            View projects
+        <div className="mt-6">
+          <Availability />
+        </div>
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <a href={profile.resumePath} download className="btn-solid">
+            Download resume
           </a>
+          <a href="#contact" className="btn-outline">
+            Contact me
+          </a>
+        </div>
+        <div className="mt-8">
+          <SocialLinks />
         </div>
       </div>
     </section>

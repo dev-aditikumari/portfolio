@@ -10,8 +10,8 @@ const poppins = Poppins({
   variable: "--font-sans",
 });
 
-const title = `${profile.name} | ${profile.role}`;
-const description = `Portfolio of ${profile.name}, a full-stack developer working with React, Node.js and MongoDB.`;
+const title = `${profile.name}, ${profile.role}`;
+const description = `${profile.name} is a Software Engineer I at MAQ Software working on data pipelines, REST APIs and SQL, and builds full-stack apps with React and Node.js. ${profile.availability}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),

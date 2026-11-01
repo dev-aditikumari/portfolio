@@ -1,11 +1,14 @@
 import type { IconType } from "react-icons";
-import { FaDatabase } from "react-icons/fa6";
+import { FaCloud, FaCode, FaCss3Alt, FaDatabase } from "react-icons/fa6";
 import {
   SiDocker,
   SiExpress,
+  SiApachespark,
   SiGit,
   SiGithubactions,
+  SiHtml5,
   SiJavascript,
+  SiJsonwebtokens,
   SiJest,
   SiMongodb,
   SiMysql,
@@ -17,6 +20,7 @@ import {
   SiPytest,
   SiPython,
   SiReact,
+  SiReactrouter,
   SiRedux,
   SiSocketdotio,
   SiTailwindcss,
@@ -49,10 +53,17 @@ const icons: Record<string, IconType> = {
   githubactions: SiGithubactions,
   postman: SiPostman,
   git: SiGit,
+  html5: SiHtml5,
+  css3: FaCss3Alt,
+  router: SiReactrouter,
+  jwt: SiJsonwebtokens,
+  spark: SiApachespark,
+  cloud: FaCloud,
+  code: FaCode,
 };
 
 export function Icon({ name, className }: { name: string; className?: string }) {
-  const Component = icons[name] ?? FaDatabase;
+  const Component = icons[name] ?? FaCode;
   return <Component aria-hidden="true" className={className} />;
 }
 

@@ -16,7 +16,7 @@ const field =
   "w-full rounded border bg-night px-3 py-2 text-white placeholder:text-quiet";
 
 export function ContactForm({ email, openMailto = defaultOpen }: Props) {
-  const [values, setValues] = useState<ContactFields>({ name: "", email: "", message: "" });
+  const [values, setValues] = useState<ContactFields>({ name: "", email: "", company: "", role: "", message: "" });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [sent, setSent] = useState(false);
 
@@ -36,7 +36,7 @@ export function ContactForm({ email, openMailto = defaultOpen }: Props) {
     openMailto(buildMailto(email, values));
   }
 
-  const border = (key: keyof ContactFields) => (errors[key] ? "border-red-400" : "border-edge");
+  const border = (key: keyof ContactErrors) => (errors[key] ? "border-red-400" : "border-edge");
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5" aria-label="Contact form">
@@ -82,6 +82,31 @@ export function ContactForm({ email, openMailto = defaultOpen }: Props) {
         )}
       </div>
       <div>
+        <label htmlFor="cf-company" className="mb-1 block text-sm text-white">
+          Company <span className="text-quiet">(optional)</span>
+        </label>
+        <input
+          id="cf-company"
+          name="company"
+          autoComplete="organization"
+          value={values.company}
+          onChange={(e) => update("company", e.target.value)}
+          className={`${field} border-edge`}
+        />
+      </div>
+      <div>
+        <label htmlFor="cf-role" className="mb-1 block text-sm text-white">
+          Role you are hiring for <span className="text-quiet">(optional)</span>
+        </label>
+        <input
+          id="cf-role"
+          name="role"
+          value={values.role}
+          onChange={(e) => update("role", e.target.value)}
+          className={`${field} border-edge`}
+        />
+      </div>
+      <div>
         <label htmlFor="cf-message" className="mb-1 block text-sm text-white">
           Message
         </label>
@@ -104,6 +129,7 @@ export function ContactForm({ email, openMailto = defaultOpen }: Props) {
       <button type="submit" className="btn-solid">
         Send message
       </button>
+      <p className="text-sm text-white">Available to join immediately.</p>
       <p role="status" className="text-sm text-quiet">
         {sent
           ? `Your email app should open with the message filled in. If it does not, write to ${email}.`

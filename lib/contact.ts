@@ -1,5 +1,11 @@
-export type ContactFields = { name: string; email: string; message: string };
-export type ContactErrors = Partial<Record<keyof ContactFields, string>>;
+export type ContactFields = {
+  name: string;
+  email: string;
+  company: string;
+  role: string;
+  message: string;
+};
+export type ContactErrors = Partial<Record<"name" | "email" | "message", string>>;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -12,7 +18,11 @@ export function validateContact(fields: ContactFields): ContactErrors {
 }
 
 export function buildMailto(to: string, fields: ContactFields): string {
-  const subject = `Portfolio message from ${fields.name.trim()}`;
-  const body = `${fields.message.trim()}\n\n${fields.name.trim()}\n${fields.email.trim()}`;
-  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const company = fields.company.trim();
+  const role = fields.role.trim();
+  const subject = role ? `Opportunity: ${role}` : `Portfolio message from ${fields.name.trim()}`;
+  const lines = [fields.message.trim(), "", fields.name.trim(), fields.email.trim()];
+  if (company) lines.push(`Company: ${company}`);
+  if (role) lines.push(`Role: ${role}`);
+  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
 }

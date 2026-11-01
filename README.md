@@ -1,8 +1,9 @@
 # Aditi Kumari, portfolio
 
-Personal portfolio site for Aditi Kumari, a full-stack developer. It is a single dark-themed page with
-a hero, two scrolling role bands, About, Skills, Projects (with filter tabs), Background, Contact and a footer,
-plus a resume download. The layout follows a reference site the owner chose; all text and images are her own.
+Personal portfolio for Aditi Kumari, a Software Engineer, written for recruiters. It is a single dark-themed page:
+hero with an "Immediate joiner" badge, two scrolling role bands, an at-a-glance row, About, Experience, Education
+and achievements, Skills grouped like the resume, Projects (with filter tabs), a hiring contact form and a footer,
+plus a resume download. The look follows a reference site the owner chose; all text and images are her own.
 The original static HTML/CSS site is kept in `legacy/`.
 
 ## Stack
@@ -36,7 +37,7 @@ npm test
 npm run test:coverage
 ```
 
-Last run: 76 tests in 4 suites passed; `tsc --noEmit`, `next lint` and `next build` pass without warnings.
+Last run: 92 tests in 4 suites passed; `tsc --noEmit`, `next lint` and `next build` pass without warnings.
 The tests cover the components (project card, skills list, navigation, contact links, page structure),
 data integrity (required fields, https URLs, non-empty skill groups, resume file exists in `public/`,
 no phone number in profile data), and a check that no data string contains "lorem" or "todo".
@@ -59,7 +60,7 @@ legacy/           the original static site, unchanged
 
 Append an object to the array in `data/projects.ts`. The `Project` type is in `data/types.ts`:
 `slug`, `name`, `summary`, `stack`, `categories` and `areas` are required; `codeUrl`, `liveUrl`, `image` and `features` are optional.
-Put a resized screenshot in `public/projects/` and set `image`. A project with no `codeUrl` is shown without a Source Code button (used for a private repository).
+Put a resized screenshot in `public/projects/` and set `image`. A project with no `codeUrl` is shown without a GitHub button.
 The data tests check that URLs are https and slugs are unique.
 
 ## Deploy on Vercel
@@ -70,7 +71,7 @@ it is used for canonical, Open Graph and sitemap URLs (the current value is a pl
 
 ## Lighthouse
 
-Measured on 2026-11-01 after the redesign against the production build (`npm run build && npx next start -p 5500`),
+Measured on 2026-11-01 after the recruiter-focused rewrite against the production build (`npm run build && npx next start -p 5500`),
 Lighthouse 12.8.2, mobile emulation (default), system Chrome:
 
 ```bash
@@ -86,7 +87,7 @@ CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
 | Best practices | 100 |
 | SEO | 100 |
 
-FCP 1.1 s, LCP 2.4 s, TBT 0 ms, CLS 0, Speed Index 1.1 s. Lighthouse still lists small opportunities: render-blocking CSS, legacy and unused JavaScript from the Next.js runtime, and project screenshots that could be served smaller. These were measured on localhost, so real-world numbers on Vercel will differ. Summary: `docs/lighthouse-summary.json`.
+FCP 1.1 s, LCP 2.3 s, TBT 10 ms, CLS 0, Speed Index 1.1 s. Lighthouse still lists small opportunities: render-blocking CSS, legacy and unused JavaScript from the Next.js runtime, and project screenshots that could be served smaller. These were measured on localhost, so real-world numbers on Vercel will differ. Summary: `docs/lighthouse-summary.json`.
 
 ## Screenshots
 
@@ -99,15 +100,16 @@ Mobile (390 px wide, full page):
 ![Mobile](docs/mobile.png)
 
 A script run with playwright-core at 390 px width found no horizontal overflow
-(scroll width 390, client width 390), all five nav anchors point to existing sections, and the resume
+(scroll width 390, client width 390), all six nav anchors point to existing sections, and the resume
 link downloads `Aditi-Kumari-Resume.pdf` (served as `application/pdf`).
 
 ## Limitations
 
 - No photo of Aditi is used. The images in the old site were template placeholders, a photo of someone else, or an edited photo, so none were reused. Project cards use screenshots taken from the project repositories (the Academic Insight chart is drawn from synthetic data, as the card says).
+- The Cloud and Data skills (Azure, Azure Data Factory, Microsoft Fabric, PySpark) come from work experience and are not backed by a public repository; the page says so.
+- The Bengaluru location and the "Immediate joiner" status were given by the owner and are not in the resume text I could check. The MAQ Software entries list Noida, as in the resume data file.
 - The skill bars in About are counts of how many listed projects use an area, not self ratings.
-- Contact opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
-- DSA in C++ is listed without a Source Code link because its repository is private. Add `codeUrl` when it is public.
+- The contact form (name, email, company, role, message) opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
 - Dark theme only; the marquee bands stop moving when the visitor prefers reduced motion.
 - The resume PDF is the owner's existing file. It still contains a phone number, which the site itself
   does not show. Replace `public/Aditi-Kumari-Resume.pdf` with a version without it if you do not want it public.

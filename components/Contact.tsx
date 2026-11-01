@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import { Availability } from "./Availability";
 import { ContactForm } from "./ContactForm";
 import { Section } from "./Section";
 
@@ -6,11 +7,14 @@ const linkClass = "text-white underline underline-offset-4 hover:text-quiet";
 
 export function Contact() {
   return (
-    <Section id="contact" title="Contact">
+    <Section id="contact" title="Contact" tone="navy">
       <div className="grid gap-12 md:grid-cols-2">
         <div>
-          <h3 className="mb-4 text-xl font-semibold text-white">Drop a comment</h3>
-          <p className="mb-6 max-w-md">The best way to reach me is by email, or use the form.</p>
+          <h3 className="mb-4 text-xl font-semibold text-white">Hiring? Get in touch</h3>
+          <div className="mb-4">
+            <Availability />
+          </div>
+          <p className="mb-6 max-w-md">Available to join immediately. Email me, or use the form.</p>
           <ul className="space-y-2">
             <li>
               Email:{" "}

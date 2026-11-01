@@ -1,7 +1,7 @@
 {
   "tool": "lighthouse",
   "version": "12.8.2",
-  "date": "2026-11-01T16:10:49.450Z",
+  "date": "2026-11-01T16:29:56.455Z",
   "url": "http://localhost:5500 (production build, next start)",
   "formFactor": "mobile (Lighthouse default emulation and simulated throttling)",
   "command": "CHROME_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" npx lighthouse http://localhost:5500 --chrome-flags=\"--headless=new --no-sandbox\" --only-categories=performance,accessibility,best-practices,seo --output=json",
@@ -12,32 +12,32 @@
     "seo": 100
   },
   "metrics": {
-    "first-contentful-paint": "1.1 s",
-    "largest-contentful-paint": "2.4 s",
-    "total-blocking-time": "0 ms",
+    "first-contentful-paint": "1.1\u00a0s",
+    "largest-contentful-paint": "2.3\u00a0s",
+    "total-blocking-time": "10\u00a0ms",
     "cumulative-layout-shift": "0",
-    "speed-index": "1.1 s"
+    "speed-index": "1.1\u00a0s"
   },
   "remainingOpportunities": [
     {
       "id": "render-blocking-insight",
       "title": "Render blocking requests",
-      "displayValue": "Est savings of 130 ms"
+      "displayValue": "Est savings of 130\u00a0ms"
     },
     {
       "id": "legacy-javascript-insight",
       "title": "Legacy JavaScript",
-      "displayValue": "Est savings of 12 KiB"
+      "displayValue": "Est savings of 12\u00a0KiB"
     },
     {
       "id": "unused-javascript",
       "title": "Reduce unused JavaScript",
-      "displayValue": "Est savings of 22 KiB"
+      "displayValue": "Est savings of 22\u00a0KiB"
     },
     {
       "id": "image-delivery-insight",
       "title": "Improve image delivery",
-      "displayValue": "Est savings of 14 KiB"
+      "displayValue": null
     }
   ]
 }

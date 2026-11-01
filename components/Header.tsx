@@ -19,7 +19,7 @@ export function Header() {
           </ul>
         </nav>
         <a href={profile.resumePath} download className="btn-outline order-2 sm:order-3">
-          Download CV
+          Download resume
         </a>
       </div>
     </header>
