@@ -25,7 +25,7 @@ export const profile: Profile = {
   marqueeTop: ["Software Engineer", "React", "TypeScript", "Node.js", "REST APIs"],
   marqueeBottom: ["SQL", "Azure Data Factory", "PySpark", "PostgreSQL", "Test Automation"],
   siteUrl: "https://dev-aditikumari.github.io/portfolio",
-  resumePath: `${base}/Aditi-Kumari-Resume.pdf`,
+  resumePath: `${base}/Aditi-Kumari-Resume-UI.pdf`,
   resumes: [
     { id: "ui", label: "Resume: UI-focused", path: `${base}/Aditi-Kumari-Resume-UI.pdf` },
     { id: "backend", label: "Resume: Backend & data-focused", path: `${base}/Aditi-Kumari-Resume-Backend.pdf` },

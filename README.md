@@ -49,7 +49,7 @@ app/              layout, page, globals.css, robots.ts, sitemap.ts, icon.svg
 components/       one component per section, plus ProjectCard, ProjectGrid, ContactForm, Marquee, Icon
 lib/              contact form validation and mailto builder
 data/             typed content: profile, projects, skills, background, nav, types
-public/           Aditi-Kumari-Resume.pdf (old path, same file as the UI version), Aditi-Kumari-Resume-UI.pdf, Aditi-Kumari-Resume-Backend.pdf, projects/ (resized screenshots from the project repos)
+public/           Aditi-Kumari-Resume-UI.pdf, Aditi-Kumari-Resume-Backend.pdf, projects/ (resized screenshots from the project repos)
 __tests__/        Jest tests
 docs/             screenshots and the Lighthouse summary
 legacy/           the original static site, unchanged
@@ -111,9 +111,9 @@ hero resume link downloads `Aditi-Kumari-Resume-UI.pdf` (served as `application/
 - The skill bars in About are counts of how many listed projects use an area, not self ratings.
 - The contact form (name, email, company, role, message) opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
 - Dark theme only; the marquee bands stop moving when the visitor prefers reduced motion.
-- `Aditi-Kumari-Resume-UI.pdf` is the frontend-focused resume and `Aditi-Kumari-Resume-Backend.pdf` is the backend and data-focused one. `Aditi-Kumari-Resume.pdf` is a copy of the UI one so older links keep working.
+- `Aditi-Kumari-Resume-UI.pdf` is the frontend-focused resume and `Aditi-Kumari-Resume-Backend.pdf` is the backend and data-focused one.
 - The resume PDF is the owner's current resume (AditiKumari_Resume_B). It contains a phone number, which the site
-  itself does not show. Replace `public/Aditi-Kumari-Resume.pdf` with a version without it if you do not want it public.
+  itself does not show. Replace the two PDFs in `public/` with a version without it if you do not want it public.
 - GitHub Actions has not been run on GitHub; the workflow was only linted with actionlint.
 - The `legacy/` site has known bugs; it is excluded from lint, typecheck and tests.
 
