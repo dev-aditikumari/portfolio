@@ -1,6 +1,6 @@
 import { navItems } from "@/data/nav";
-import { profile } from "@/data/profile";
 import { Logo } from "./Logo";
+import { ResumeMenu } from "./ResumeMenu";
 
 export function Header() {
   return (
@@ -18,9 +18,7 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <a href={profile.resumePath} download className="btn-outline order-2 sm:order-3">
-          Download resume
-        </a>
+        <ResumeMenu />
       </div>
     </header>
   );

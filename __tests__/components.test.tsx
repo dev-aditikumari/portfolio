@@ -102,6 +102,19 @@ describe("ProjectGrid filters", () => {
   });
 });
 
+describe("Project filter with multiple tags", () => {
+  it("shows Traceability Report under Full stack, Backend and data, Frontend and Built at work", async () => {
+    const user = userEvent.setup();
+    render(<ProjectGrid projects={projects} />);
+    for (const tab of ["Full stack", "Backend and data", "Frontend", "Built at work"]) {
+      await user.click(screen.getByRole("button", { name: tab }));
+      expect(screen.getByRole("heading", { name: "Traceability Report" })).toBeInTheDocument();
+    }
+    await user.click(screen.getByRole("button", { name: "Built at work" }));
+    expect(screen.getAllByRole("article")).toHaveLength(1);
+  });
+});
+
 describe("Projects section", () => {
   it("renders one card per project in the data file", () => {
     render(<Projects />);
@@ -170,16 +183,32 @@ describe("About", () => {
 });
 
 describe("Header navigation", () => {
-  it("has a labelled nav with a link for each section and a CV download", () => {
+  it("has a labelled nav with a link for each section", () => {
     render(<Header />);
     const nav = screen.getByRole("navigation", { name: "Main" });
     for (const item of navItems) {
       expect(within(nav).getByRole("link", { name: item.label })).toHaveAttribute("href", item.href);
     }
-    const cv = screen.getByRole("link", { name: "Download resume" });
-    expect(cv).toHaveAttribute("href", profile.resumePath);
-    expect(cv).toHaveAttribute("download");
   });
+
+  it("opens a keyboard accessible resume menu with both resumes and closes on Escape", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+    const button = screen.getByRole("button", { name: /download resume/i });
+    expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(screen.queryByRole("link", { name: /resume:/i })).toBeNull();
+    button.focus();
+    await user.keyboard("{Enter}");
+    expect(button).toHaveAttribute("aria-expanded", "true");
+    const links = screen.getAllByRole("link", { name: /resume:/i });
+    expect(links.map((l) => l.getAttribute("href"))).toEqual(profile.resumes.map((r) => r.path));
+    for (const l of links) expect(l).toHaveAttribute("download");
+    await user.keyboard("{Escape}");
+    expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(button).toHaveFocus();
+    expect(screen.queryByRole("link", { name: /resume:/i })).toBeNull();
+  });
+
 });
 
 describe("Hero and marquee", () => {
@@ -189,8 +218,12 @@ describe("Hero and marquee", () => {
     expect(container.querySelector('[aria-hidden="true"].reflection')).not.toBeNull();
     expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute("href", "https://github.com/dev-aditikumari");
     expect(screen.getByText("Immediate joiner")).toBeInTheDocument();
-    const resume = screen.getByRole("link", { name: "Download resume" });
-    expect(resume).toHaveAttribute("href", profile.resumePath);
+    expect(screen.getByRole("link", { name: "Resume: UI-focused" })).toHaveAttribute("href", profile.resumes[0]?.path);
+    expect(screen.getByRole("link", { name: "Resume: Backend & data-focused" })).toHaveAttribute(
+      "href",
+      profile.resumes[1]?.path,
+    );
+    expect(screen.getByText(profile.headline)).toBeInTheDocument();
     for (const label of ["LeetCode", "CodeChef", "LinkedIn"]) {
       expect(screen.getByRole("link", { name: label })).toHaveAttribute("target", "_blank");
     }
@@ -203,7 +236,9 @@ describe("Hero and marquee", () => {
     const { container } = render(<Marquee />);
     const bands = container.querySelectorAll('[aria-hidden="true"]');
     expect(bands.length).toBe(2);
-    expect(container.textContent).toContain("Backend");
+    expect(container.textContent).toContain("TypeScript");
+    expect(container.textContent).toContain("Azure Data Factory");
+    expect(container.textContent).not.toMatch(/Full Stack|Backend/);
   });
 });
 
@@ -211,9 +246,11 @@ describe("Contact", () => {
   it("has a mailto link with the profile email and a resume link", () => {
     render(<Contact />);
     expect(screen.getByRole("link", { name: profile.email })).toHaveAttribute("href", `mailto:${profile.email}`);
-    const link = screen.getByRole("link", { name: /download resume/i });
-    expect(link).toHaveAttribute("href", profile.resumePath);
-    expect(link).toHaveAttribute("download");
+    for (const resume of profile.resumes) {
+      const link = screen.getByRole("link", { name: resume.label });
+      expect(link).toHaveAttribute("href", resume.path);
+      expect(link).toHaveAttribute("download");
+    }
     expect(screen.getByRole("form", { name: "Contact form" })).toBeInTheDocument();
   });
 });
@@ -232,12 +269,20 @@ describe("Footer", () => {
 });
 
 describe("Project cards on the page", () => {
-  it("gives every project a GitHub link to its own repository", () => {
+  it("gives every project a GitHub link to its own repository, except the private work project", () => {
     render(<Projects />);
     const hrefs = screen.getAllByRole("link", { name: /github repository/i }).map((a) => a.getAttribute("href"));
-    expect(hrefs).toHaveLength(projects.length);
-    expect(new Set(hrefs).size).toBe(projects.length);
-    expect(screen.queryByText(/coming soon/i)).not.toBeInTheDocument();
+    expect(hrefs).toHaveLength(projects.length - 1);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+    const card = screen.getByRole("article", { name: "Traceability Report" });
+    expect(within(card).queryByRole("link")).toBeNull();
+    expect(within(card).getByText("Built at work; source is private.")).toBeInTheDocument();
+  });
+
+  it("lists Traceability Report first, then Skillora, NextMeet and Zink", () => {
+    render(<Projects />);
+    const names = screen.getAllByRole("article").map((a) => within(a).getByRole("heading").textContent);
+    expect(names.slice(0, 4)).toEqual(["Traceability Report", "Skillora", "NextMeet", "Zink"]);
   });
 
   it("keeps Zink and NextMeet distinct", () => {

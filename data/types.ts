@@ -1,4 +1,4 @@
-export type ProjectCategory = "full-stack" | "backend-data" | "frontend";
+export type ProjectCategory = "full-stack" | "backend-data" | "frontend" | "work";
 
 export type SkillArea = "frontend" | "backend" | "database" | "realtime" | "testing" | "devops";
 
@@ -20,6 +20,7 @@ export type Project = {
   image?: ProjectImage;
   liveUrl?: string;
   codeUrl?: string;
+  note?: string;
 };
 
 export type SkillGroup = {
@@ -55,6 +56,12 @@ export type ExperienceItem = {
   points: string[];
 };
 
+export type ResumeOption = {
+  id: "ui" | "backend";
+  label: string;
+  path: string;
+};
+
 export type Profile = {
   name: string;
   initials: string;
@@ -67,6 +74,7 @@ export type Profile = {
   facts: Fact[];
   siteUrl: string;
   resumePath: string;
+  resumes: ResumeOption[];
   marqueeTop: string[];
   marqueeBottom: string[];
   links: { label: string; url: string }[];

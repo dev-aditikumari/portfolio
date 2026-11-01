@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import { ResumeLinks } from "./ResumeLinks";
 import { Availability } from "./Availability";
 import { ContactForm } from "./ContactForm";
 import { Section } from "./Section";
@@ -30,12 +31,9 @@ export function Contact() {
                 </a>
               </li>
             ))}
-            <li>
-              <a href={profile.resumePath} download className={linkClass}>
-                Download resume (PDF)
-              </a>
-            </li>
           </ul>
+          <h4 className="mb-2 mt-6 text-sm font-semibold text-white">Download resume (PDF)</h4>
+          <ResumeLinks variant="text" linkClass={linkClass} />
         </div>
         <ContactForm email={profile.email} />
       </div>

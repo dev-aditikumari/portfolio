@@ -3,15 +3,6 @@ import type { SkillGroup } from "./types";
 export const skillGroups: SkillGroup[] = [
   { name: "Languages", skills: ["JavaScript (ES6+)", "TypeScript", "Python", "SQL"] },
   {
-    name: "Backend & APIs",
-    skills: ["Node.js", "Express.js", "REST APIs", "JWT", "RBAC", "WebSockets", "Socket.IO"],
-  },
-  { name: "Databases", skills: ["MongoDB", "PostgreSQL", "MySQL", "SQL Server"] },
-  {
-    name: "Testing & DevOps",
-    skills: ["Jest", "React Testing Library", "pytest", "Git", "GitHub Actions", "CI/CD", "Docker", "Postman"],
-  },
-  {
     name: "Frontend",
     skills: [
       "React.js",
@@ -28,9 +19,18 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    name: "Backend & APIs",
+    skills: ["Node.js", "Express.js", "REST APIs", "JWT", "RBAC", "WebSockets", "Socket.IO"],
+  },
+  { name: "Databases", skills: ["MongoDB", "PostgreSQL", "MySQL", "SQL Server"] },
+  {
     name: "Cloud & Data",
     skills: ["Microsoft Azure", "Azure Data Factory", "Microsoft Fabric", "PySpark"],
     note: "Used at work. These are not in my public repositories.",
+  },
+  {
+    name: "Testing & DevOps",
+    skills: ["Jest", "React Testing Library", "pytest", "Git", "GitHub Actions", "CI/CD", "Docker", "Postman"],
   },
   {
     name: "Fundamentals",

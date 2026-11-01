@@ -1,5 +1,6 @@
 import { profile } from "@/data/profile";
 import { Availability } from "./Availability";
+import { ResumeLinks } from "./ResumeLinks";
 import { SocialLinks } from "./SocialLinks";
 
 export function Hero() {
@@ -19,11 +20,9 @@ export function Hero() {
         <div className="mt-6">
           <Availability />
         </div>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a href={profile.resumePath} download className="btn-solid">
-            Download resume
-          </a>
-          <a href="#contact" className="btn-outline">
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <ResumeLinks />
+          <a href="#contact" className="btn-solid">
             Contact me
           </a>
         </div>

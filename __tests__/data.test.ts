@@ -74,15 +74,30 @@ describe("projects data", () => {
     }
   });
 
-  it("gives every project a GitHub link", () => {
-    expect(projects.filter((p) => !p.codeUrl)).toEqual([]);
+  it("gives every project a GitHub link except the private work project", () => {
+    expect(projects.filter((p) => !p.codeUrl).map((p) => p.slug)).toEqual(["traceability-report"]);
+    const work = projects.find((p) => p.slug === "traceability-report");
+    expect(work?.note).toBe("Built at work; source is private.");
+    expect(work?.liveUrl).toBeUndefined();
+    expect(work?.categories).toEqual(expect.arrayContaining(["work", "full-stack", "backend-data", "frontend"]));
     expect(projects.find((p) => p.slug === "dsa-cpp")?.codeUrl).toBe("https://github.com/dev-aditikumari/dsa-cpp");
   });
 
-  it("lists exactly the eleven presentable projects", () => {
-    expect(projects.map((p) => p.slug).sort()).toEqual(
-      ["academic-insight-engine","devops-notes-service","dsa-cpp","festival-sales","lets-talk","nextmeet","react-implementations","shopper","skillora","sql-practice","zink"].sort(),
-    );
+  it("lists the twelve projects in the intended order", () => {
+    expect(projects.map((p) => p.slug)).toEqual([
+      "traceability-report",
+      "skillora",
+      "nextmeet",
+      "zink",
+      "lets-talk",
+      "shopper",
+      "react-implementations",
+      "devops-notes-service",
+      "festival-sales",
+      "academic-insight-engine",
+      "sql-practice",
+      "dsa-cpp",
+    ]);
   });
 
   it("keeps Zink and NextMeet as separate projects with their own repositories", () => {
@@ -124,14 +139,14 @@ describe("skills data", () => {
     }
   });
 
-  it("has the seven resume groups in order", () => {
+  it("has the seven groups in the intended order", () => {
     expect(skillGroups.map((g) => g.name)).toEqual([
       "Languages",
+      "Frontend",
       "Backend & APIs",
       "Databases",
-      "Testing & DevOps",
-      "Frontend",
       "Cloud & Data",
+      "Testing & DevOps",
       "Fundamentals",
     ]);
   });
@@ -152,10 +167,29 @@ describe("skills data", () => {
 });
 
 describe("profile data", () => {
-  it("points to a resume file that exists in public/", () => {
-    const file = path.join(process.cwd(), "public", profile.resumePath);
-    expect(fs.existsSync(file)).toBe(true);
-    expect(fs.statSync(file).size).toBeGreaterThan(0);
+  it("points to resume files that exist in public/", () => {
+    for (const p of [profile.resumePath, ...profile.resumes.map((r) => r.path)]) {
+      const file = path.join(process.cwd(), "public", p);
+      expect(fs.existsSync(file)).toBe(true);
+      expect(fs.statSync(file).size).toBeGreaterThan(0);
+    }
+  });
+
+  it("offers a UI-focused and a backend and data-focused resume", () => {
+    expect(profile.resumes.map((r) => r.label)).toEqual(["Resume: UI-focused", "Resume: Backend & data-focused"]);
+    expect(profile.resumes.map((r) => r.path)).toEqual([
+      "/Aditi-Kumari-Resume-UI.pdf",
+      "/Aditi-Kumari-Resume-Backend.pdf",
+    ]);
+  });
+
+  it("uses the agreed tagline and avoids narrow job titles in copy", () => {
+    expect(profile.headline).toBe(
+      "I build across the stack: React interfaces, Node.js and REST APIs, SQL and data pipelines.",
+    );
+    const text = collectStrings([profile, projects, experience, achievements]).join(" ");
+    expect(text).not.toMatch(/(front|back)end engineer|full[- ]stack (engineer|developer)|nexmeet/i);
+    expect(text).not.toMatch(/\d+\s?%\s+(faster|reduc|saving)|hours saved|every PBI|all test cases/i);
   });
 
   it("has a valid email and https links", () => {

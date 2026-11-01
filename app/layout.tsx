@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 const title = `${profile.name}, ${profile.role}`;
-const description = `${profile.name} is a Software Engineer I at MAQ Software working on data pipelines, REST APIs and SQL, and builds full-stack apps with React and Node.js. ${profile.availability}.`;
+const description = `${profile.name} is a Software Engineer at MAQ Software building React interfaces, REST APIs, SQL and data pipelines. ${profile.availability}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),

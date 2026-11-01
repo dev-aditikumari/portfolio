@@ -51,6 +51,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
             </li>
           ))}
         </ul>
+        {project.note && <p className="mb-3 text-sm text-quiet">{project.note}</p>}
         <div className="mt-auto flex flex-wrap gap-3">
           {project.codeUrl && (
             <a href={project.codeUrl} className="btn-outline" target="_blank" rel="noopener noreferrer">

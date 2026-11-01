@@ -32,10 +32,10 @@ export const experience: ExperienceItem[] = [
     period: "July 2026 to present",
     kind: "work",
     points: [
+      "Designed and built a Traceability Report tool (React 19, Vite, Node.js) that maps PBIs to acceptance criteria and test cases using Azure DevOps REST APIs and an LLM mapping engine, with coverage and risk metrics and Excel export, reducing repetitive manual mapping. Structured with Hexagonal (Ports and Adapters) architecture.",
+      "Build reusable React components with Redux Toolkit and Tailwind CSS; 10+ components and pages shipped to production.",
+      "Wrote a SQL schema comparison report that found more than 60 cross-database differences, and pytest unit tests for pipeline utilities under an 85% line-coverage gate.",
       "Work on production data workflows and REST API integrations for a US financial-services engagement.",
-      "Wrote a SQL schema comparison report that found more than 60 cross-database differences.",
-      "Wrote pytest unit tests for pipeline utilities under an 85% line-coverage gate.",
-      "Build React components with Redux Toolkit and Tailwind CSS.",
     ],
   },
   {
@@ -45,9 +45,9 @@ export const experience: ExperienceItem[] = [
     period: "January 2026 to June 2026",
     kind: "work",
     points: [
-      "Built Azure Data Factory pipelines with dynamic MERGE logic.",
-      "Designed a SQL-based KPI validation framework with more than 30 parameterised test cases.",
-      "Wrote PySpark notebooks on Microsoft Fabric.",
+      "Built Azure Data Factory pipelines with dynamic SQL MERGE logic, fixed AccountID-level race conditions, and improved logging and timeout handling to reduce inconsistent production failures.",
+      "Developed PySpark notebooks on Microsoft Fabric (Delta tables) for CRA scoring analytics; improved validation accuracy and pipeline monitoring.",
+      "Designed a SQL-based KPI validation framework (orchestrator plus SQL template layer) with 30+ parameterised test cases and LOB-level isolation, automating validation workflows to cut repetitive manual checks.",
     ],
   },
   {

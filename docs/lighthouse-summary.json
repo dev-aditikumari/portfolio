@@ -1,7 +1,7 @@
 {
   "tool": "lighthouse",
   "version": "12.8.2",
-  "date": "2026-11-01T16:29:56.455Z",
+  "date": "2026-11-01T18:06:04.517Z",
   "url": "http://localhost:5500 (production build, next start)",
   "formFactor": "mobile (Lighthouse default emulation and simulated throttling)",
   "command": "CHROME_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" npx lighthouse http://localhost:5500 --chrome-flags=\"--headless=new --no-sandbox\" --only-categories=performance,accessibility,best-practices,seo --output=json",
@@ -12,11 +12,11 @@
     "seo": 100
   },
   "metrics": {
-    "first-contentful-paint": "1.1\u00a0s",
-    "largest-contentful-paint": "2.3\u00a0s",
-    "total-blocking-time": "10\u00a0ms",
+    "first-contentful-paint": "1.1 s",
+    "largest-contentful-paint": "2.3 s",
+    "total-blocking-time": "0 ms",
     "cumulative-layout-shift": "0",
-    "speed-index": "1.1\u00a0s"
+    "speed-index": "1.1 s"
   },
   "remainingOpportunities": [
     {

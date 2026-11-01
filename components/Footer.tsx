@@ -1,6 +1,7 @@
 import { navItems } from "@/data/nav";
 import { profile } from "@/data/profile";
 import { Logo } from "./Logo";
+import { ResumeLinks } from "./ResumeLinks";
 
 const linkClass = "text-quiet hover:text-white";
 
@@ -45,10 +46,10 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">Resume</h2>
-          <a href={profile.resumePath} download className={`${linkClass} text-sm`}>
-            Download CV (PDF)
-          </a>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">Resumes</h2>
+          <div className="text-sm">
+            <ResumeLinks variant="text" linkClass={linkClass} />
+          </div>
         </div>
       </div>
       <p className="mx-auto mt-10 max-w-6xl px-4 text-sm text-quiet sm:px-6">

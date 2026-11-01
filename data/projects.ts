@@ -4,6 +4,7 @@ export const categoryLabels: Record<ProjectCategory, string> = {
   "full-stack": "Full stack",
   "backend-data": "Backend and data",
   frontend: "Frontend",
+  work: "Built at work",
 };
 
 export const areaLabels: Record<SkillArea, string> = {
@@ -17,8 +18,18 @@ export const areaLabels: Record<SkillArea, string> = {
 
 const gh = "https://github.com/dev-aditikumari";
 
-// Add a new project by appending an object to this array. The newest goes first.
+// Add a new project by adding an object to this array. Order here is the order on the page.
 export const projects: Project[] = [
+  {
+    slug: "traceability-report",
+    name: "Traceability Report",
+    summary:
+      "Maps PBIs to acceptance criteria and test cases from Azure DevOps using an LLM mapping engine, with coverage and risk metrics and Excel export. Hexagonal architecture.",
+    stack: ["React 19", "Vite", "Node.js", "Azure DevOps REST", "LLM", "ExcelJS"],
+    categories: ["work", "full-stack", "backend-data", "frontend"],
+    areas: ["frontend", "backend"],
+    note: "Built at work; source is private.",
+  },
   {
     slug: "skillora",
     name: "Skillora",

@@ -32,13 +32,13 @@ describe("buildMailto", () => {
 });
 
 describe("buildMailto with company and role", () => {
-  const base = { name: "Asha", email: "a@b.co", company: "Acme", role: "Backend Engineer", message: "We would like to talk." };
+  const base = { name: "Asha", email: "a@b.co", company: "Acme", role: "Software Engineer", message: "We would like to talk." };
 
   it("uses the role in the subject and puts company and role in the body", () => {
     const url = buildMailto("me@example.com", base);
-    expect(decodeURIComponent(url)).toContain("subject=Opportunity: Backend Engineer");
+    expect(decodeURIComponent(url)).toContain("subject=Opportunity: Software Engineer");
     expect(decodeURIComponent(url)).toContain("Company: Acme");
-    expect(decodeURIComponent(url)).toContain("Role: Backend Engineer");
+    expect(decodeURIComponent(url)).toContain("Role: Software Engineer");
   });
 
   it("leaves company and role out when empty", () => {
@@ -72,7 +72,7 @@ describe("ContactForm", () => {
     await user.type(screen.getByLabelText("Name"), "Asha");
     await user.type(screen.getByLabelText("Email"), "asha@example.com");
     await user.type(screen.getByLabelText(/Company/), "Acme");
-    await user.type(screen.getByLabelText(/Role you are hiring for/), "Backend Engineer");
+    await user.type(screen.getByLabelText(/Role you are hiring for/), "Software Engineer");
     await user.type(screen.getByLabelText("Message"), "Hello, I liked your projects.");
     await user.click(screen.getByRole("button", { name: "Send message" }));
     expect(open).toHaveBeenCalledTimes(1);
