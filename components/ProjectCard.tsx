@@ -11,7 +11,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
     >
       {project.image ? (
         <Image
-          src={project.image.src}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${project.image.src}`}
           alt={project.image.alt}
           width={project.image.width}
           height={project.image.height}

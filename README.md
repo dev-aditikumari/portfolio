@@ -115,3 +115,9 @@ link downloads `Aditi-Kumari-Resume.pdf` (served as `application/pdf`).
   itself does not show. Replace `public/Aditi-Kumari-Resume.pdf` with a version without it if you do not want it public.
 - GitHub Actions has not been run on GitHub; the workflow was only linted with actionlint.
 - The `legacy/` site has known bugs; it is excluded from lint, typecheck and tests.
+
+## Deployment
+
+The site is deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`. The workflow runs the tests, then builds a static export (`STATIC_EXPORT=true`, `NEXT_PUBLIC_BASE_PATH=/portfolio`) and publishes the `out/` folder at https://dev-aditikumari.github.io/portfolio/. Without those variables `npm run build` makes the normal Next.js build, which also works on Vercel.
+
+To try the export locally, run the same build and serve `out/` from a folder named `portfolio`, for example `python3 -m http.server` one level above it.

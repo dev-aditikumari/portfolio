@@ -23,8 +23,8 @@ export const profile: Profile = {
   email: "aditikumari35355@gmail.com",
   marqueeTop: ["Software Engineer", "Backend", "Full Stack", "SQL", "Node.js", "React"],
   marqueeBottom: ["REST APIs", "Azure Data Factory", "PySpark", "PostgreSQL", "Test Automation"],
-  siteUrl: "https://aditi-portfolio.vercel.app",
-  resumePath: "/Aditi-Kumari-Resume.pdf",
+  siteUrl: "https://dev-aditikumari.github.io/portfolio",
+  resumePath: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Aditi-Kumari-Resume.pdf`,
   links: [
     { label: "GitHub", url: "https://github.com/dev-aditikumari" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/aditikumari35355/" },
