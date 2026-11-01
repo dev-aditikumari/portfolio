@@ -111,7 +111,7 @@ hero resume link downloads `Aditi-Kumari-Resume-UI.pdf` (served as `application/
 - The skill bars in About are counts of how many listed projects use an area, not self ratings.
 - The contact form (name, email, company, role, message) opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
 - Dark theme only; the marquee bands stop moving when the visitor prefers reduced motion.
-- `Aditi-Kumari-Resume-UI.pdf` and `Aditi-Kumari-Resume-Backend.pdf` are currently byte-for-byte copies of the same file. Replace each with the matching resume.
+- `Aditi-Kumari-Resume-UI.pdf` is the frontend-focused resume and `Aditi-Kumari-Resume-Backend.pdf` is the backend and data-focused one. `Aditi-Kumari-Resume.pdf` is a copy of the UI one so older links keep working.
 - The resume PDF is the owner's current resume (AditiKumari_Resume_B). It contains a phone number, which the site
   itself does not show. Replace `public/Aditi-Kumari-Resume.pdf` with a version without it if you do not want it public.
 - GitHub Actions has not been run on GitHub; the workflow was only linted with actionlint.
