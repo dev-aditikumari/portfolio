@@ -28,7 +28,7 @@ export const experience: ExperienceItem[] = [
   {
     organization: "MAQ Software",
     role: "Software Engineer I",
-    location: "Noida, India",
+    location: "Bengaluru, India",
     period: "July 2026 to present",
     kind: "work",
     points: [
@@ -41,7 +41,7 @@ export const experience: ExperienceItem[] = [
   {
     organization: "MAQ Software",
     role: "Associate Software Engineer",
-    location: "Noida, India",
+    location: "Bengaluru, India",
     period: "January 2026 to June 2026",
     kind: "work",
     points: [
