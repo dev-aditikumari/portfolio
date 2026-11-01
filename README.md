@@ -107,7 +107,7 @@ link downloads `Aditi-Kumari-Resume.pdf` (served as `application/pdf`).
 
 - No photo of Aditi is used. The images in the old site were template placeholders, a photo of someone else, or an edited photo, so none were reused. Project cards use screenshots taken from the project repositories (the Academic Insight chart is drawn from synthetic data, as the card says).
 - The Cloud and Data skills (Azure, Azure Data Factory, Microsoft Fabric, PySpark) come from work experience and are not backed by a public repository; the page says so.
-- The location is Bengaluru everywhere on the site. "Immediate joiner" status was given by the owner.
+- The location shown for the owner is Bengaluru, where she lives and works remotely. The MAQ Software entries say Noida, the office location. "Immediate joiner" status was given by the owner.
 - The skill bars in About are counts of how many listed projects use an area, not self ratings.
 - The contact form (name, email, company, role, message) opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
 - Dark theme only; the marquee bands stop moving when the visitor prefers reduced motion.
