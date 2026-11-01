@@ -5,7 +5,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
+    background-color: theme("colors.night");
+  }
+
+  body {
+    @apply bg-night font-sans text-copy antialiased;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-white;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -16,16 +25,32 @@
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms !important;
+      animation: none !important;
       transition-duration: 0.01ms !important;
     }
   }
+}
 
-  body {
-    @apply bg-paper font-sans text-ink antialiased;
+@layer components {
+  .gradient-text {
+    background-image: linear-gradient(90deg, #ff2d3f 0%, #b01ad8 60%, #9333ea 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-accent;
+  .reflection {
+    transform: scaleY(-1);
+    opacity: 0.35;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9));
+    mask-image: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9));
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-brand px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand;
+  }
+
+  .btn-solid {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-brand bg-brand px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brandHover;
   }
 }

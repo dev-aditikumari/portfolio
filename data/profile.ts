@@ -2,7 +2,8 @@ import type { Profile } from "./types";
 
 export const profile: Profile = {
   name: "Aditi Kumari",
-  role: "Full-stack developer",
+  initials: "AK",
+  role: "Full Stack Developer",
   headline:
     "I build web applications with React, Node.js and MongoDB. I am a Computer Science student at NIT Agartala.",
   about: [
@@ -11,6 +12,8 @@ export const profile: Profile = {
     "Outside coursework I am a member of MUNSOC and curriculum lead at WeCan, a society of NIT Agartala that teaches underprivileged children.",
   ],
   email: "aditikumari4980@gmail.com",
+  marqueeTop: ["Full Stack Developer", "MERN", "TypeScript", "React", "Node.js"],
+  marqueeBottom: ["Next.js", "Express", "MongoDB", "PostgreSQL", "WebSockets"],
   siteUrl: "https://aditi-portfolio.vercel.app",
   resumePath: "/Aditi-Kumari-Resume.pdf",
   links: [

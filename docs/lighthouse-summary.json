@@ -1,22 +1,22 @@
 {
   "tool": "lighthouse",
   "version": "12.8.2",
-  "date": "2026-11-01T15:41:15.766Z",
+  "date": "2026-11-01T16:10:49.450Z",
   "url": "http://localhost:5500 (production build, next start)",
   "formFactor": "mobile (Lighthouse default emulation and simulated throttling)",
   "command": "CHROME_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" npx lighthouse http://localhost:5500 --chrome-flags=\"--headless=new --no-sandbox\" --only-categories=performance,accessibility,best-practices,seo --output=json",
   "scores": {
-    "performance": 100,
+    "performance": 98,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
   "metrics": {
-    "first-contentful-paint": "0.8 s",
-    "largest-contentful-paint": "1.9 s",
+    "first-contentful-paint": "1.1 s",
+    "largest-contentful-paint": "2.4 s",
     "total-blocking-time": "0 ms",
     "cumulative-layout-shift": "0",
-    "speed-index": "0.8 s"
+    "speed-index": "1.1 s"
   },
   "remainingOpportunities": [
     {
@@ -32,7 +32,12 @@
     {
       "id": "unused-javascript",
       "title": "Reduce unused JavaScript",
-      "displayValue": "Est savings of 42 KiB"
+      "displayValue": "Est savings of 22 KiB"
+    },
+    {
+      "id": "image-delivery-insight",
+      "title": "Improve image delivery",
+      "displayValue": "Est savings of 14 KiB"
     }
   ]
 }

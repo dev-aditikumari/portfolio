@@ -1,16 +1,35 @@
+export type ProjectCategory = "full-stack" | "backend-data" | "frontend";
+
+export type SkillArea = "frontend" | "backend" | "database" | "realtime" | "testing" | "devops";
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   slug: string;
   name: string;
   summary: string;
   stack: string[];
+  categories: ProjectCategory[];
+  areas: SkillArea[];
   features?: string[];
+  image?: ProjectImage;
   liveUrl?: string;
-  codeUrl: string;
+  codeUrl?: string;
 };
 
 export type SkillGroup = {
   name: string;
   skills: string[];
+};
+
+export type SkillChip = {
+  name: string;
+  icon: string;
 };
 
 export type EducationItem = {
@@ -31,11 +50,14 @@ export type ExperienceItem = {
 
 export type Profile = {
   name: string;
+  initials: string;
   role: string;
   headline: string;
   about: string[];
   email: string;
   siteUrl: string;
   resumePath: string;
+  marqueeTop: string[];
+  marqueeBottom: string[];
   links: { label: string; url: string }[];
 };

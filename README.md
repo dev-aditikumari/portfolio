@@ -1,19 +1,20 @@
 # Aditi Kumari, portfolio
 
-Personal portfolio site for Aditi Kumari, a full-stack developer. It is a single page with
-About, Skills, Projects, Experience and education, and Contact sections, plus a resume download.
+Personal portfolio site for Aditi Kumari, a full-stack developer. It is a single dark-themed page with
+a hero, two scrolling role bands, About, Skills, Projects (with filter tabs), Background, Contact and a footer,
+plus a resume download. The layout follows a reference site the owner chose; all text and images are her own.
 The original static HTML/CSS site is kept in `legacy/`.
 
 ## Stack
 
 - Next.js 15 (App Router), React 19, TypeScript (strict)
-- Tailwind CSS 3
-- `next/font` (Inter), metadata with Open Graph tags, `robots.ts`, `sitemap.ts`, SVG favicon
+- Tailwind CSS 3, react-icons
+- `next/font` (Poppins), `next/image`, metadata with Open Graph tags, `robots.ts`, `sitemap.ts`, SVG favicon
 - Jest, React Testing Library, jest-dom
 - ESLint (`next/core-web-vitals`, `next/typescript`)
 - GitHub Actions CI
 
-The page is fully static and ships no custom client-side JavaScript (only the Next.js runtime).
+The page is statically rendered. Only the project filter tabs and the contact form are client components.
 
 ## Run
 
@@ -35,7 +36,7 @@ npm test
 npm run test:coverage
 ```
 
-Last run: 27 tests in 3 suites passed; `tsc --noEmit`, `next lint` and `next build` pass without warnings.
+Last run: 76 tests in 4 suites passed; `tsc --noEmit`, `next lint` and `next build` pass without warnings.
 The tests cover the components (project card, skills list, navigation, contact links, page structure),
 data integrity (required fields, https URLs, non-empty skill groups, resume file exists in `public/`,
 no phone number in profile data), and a check that no data string contains "lorem" or "todo".
@@ -44,9 +45,10 @@ no phone number in profile data), and a check that no data string contains "lore
 
 ```
 app/              layout, page, globals.css, robots.ts, sitemap.ts, icon.svg
-components/       one component per section, plus ProjectCard and SkillsList
+components/       one component per section, plus ProjectCard, ProjectGrid, ContactForm, Marquee, Icon
+lib/              contact form validation and mailto builder
 data/             typed content: profile, projects, skills, background, nav, types
-public/           Aditi-Kumari-Resume.pdf
+public/           Aditi-Kumari-Resume.pdf, projects/ (resized screenshots from the project repos)
 __tests__/        Jest tests
 docs/             screenshots and the Lighthouse summary
 legacy/           the original static site, unchanged
@@ -56,7 +58,8 @@ legacy/           the original static site, unchanged
 ## Add a project
 
 Append an object to the array in `data/projects.ts`. The `Project` type is in `data/types.ts`:
-`slug`, `name`, `summary`, `stack` and `codeUrl` are required; `liveUrl` and `features` are optional.
+`slug`, `name`, `summary`, `stack`, `categories` and `areas` are required; `codeUrl`, `liveUrl`, `image` and `features` are optional.
+Put a resized screenshot in `public/projects/` and set `image`. A project with no `codeUrl` is shown without a Source Code button (used for a private repository).
 The data tests check that URLs are https and slugs are unique.
 
 ## Deploy on Vercel
@@ -67,7 +70,7 @@ it is used for canonical, Open Graph and sitemap URLs (the current value is a pl
 
 ## Lighthouse
 
-Measured on 2026-11-01 against the production build (`npm run build && npx next start -p 5500`),
+Measured on 2026-11-01 after the redesign against the production build (`npm run build && npx next start -p 5500`),
 Lighthouse 12.8.2, mobile emulation (default), system Chrome:
 
 ```bash
@@ -78,15 +81,12 @@ CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
 
 | Category | Score |
 | --- | --- |
-| Performance | 100 |
+| Performance | 98 |
 | Accessibility | 100 |
 | Best practices | 100 |
 | SEO | 100 |
 
-FCP 0.8 s, LCP 1.9 s, TBT 0 ms, CLS 0, Speed Index 0.8 s. Lighthouse still lists three small
-opportunities that come from the Next.js runtime and CSS: render-blocking CSS (about 130 ms),
-legacy JavaScript (12 KiB) and unused JavaScript (42 KiB). These were measured on localhost, so
-real-world numbers on Vercel will differ. Summary: `docs/lighthouse-summary.json`.
+FCP 1.1 s, LCP 2.4 s, TBT 0 ms, CLS 0, Speed Index 1.1 s. Lighthouse still lists small opportunities: render-blocking CSS, legacy and unused JavaScript from the Next.js runtime, and project screenshots that could be served smaller. These were measured on localhost, so real-world numbers on Vercel will differ. Summary: `docs/lighthouse-summary.json`.
 
 ## Screenshots
 
@@ -104,12 +104,13 @@ link downloads `Aditi-Kumari-Resume.pdf` (served as `application/pdf`).
 
 ## Limitations
 
-- No photo is used. The images in the old site were template placeholders, a photo of someone
-  else, or a photo with an edited background, so none were reused. There are therefore no `next/image` usages.
+- No photo of Aditi is used. The images in the old site were template placeholders, a photo of someone else, or an edited photo, so none were reused. Project cards use screenshots taken from the project repositories (the Academic Insight chart is drawn from synthetic data, as the card says).
+- The skill bars in About are counts of how many listed projects use an area, not self ratings.
+- Contact opens the visitor's email app (mailto). There is no backend, so nothing is stored or sent by the site.
+- DSA in C++ is listed without a Source Code link because its repository is private. Add `codeUrl` when it is public.
+- Dark theme only; the marquee bands stop moving when the visitor prefers reduced motion.
 - The resume PDF is the owner's existing file. It still contains a phone number, which the site itself
   does not show. Replace `public/Aditi-Kumari-Resume.pdf` with a version without it if you do not want it public.
   The resume lists older skills than the Skills section, which follows the owner's current list.
-- Contact is a `mailto:` link only; there is no form or backend.
-- Light theme only.
 - GitHub Actions has not been run on GitHub; the workflow was only linted with actionlint.
 - The `legacy/` site has known bugs; it is excluded from lint, typecheck and tests.

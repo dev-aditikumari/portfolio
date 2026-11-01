@@ -4,6 +4,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 
@@ -12,13 +13,14 @@ export default function Home() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-20 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-20 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-night"
       >
         Skip to main content
       </a>
       <Header />
       <main id="main">
         <Hero />
+        <Marquee />
         <About />
         <Skills />
         <Projects />

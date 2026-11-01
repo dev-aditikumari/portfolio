@@ -3,8 +3,9 @@ import path from "node:path";
 import { education, experience } from "@/data/background";
 import { navItems } from "@/data/nav";
 import { profile } from "@/data/profile";
-import { projects } from "@/data/projects";
-import { skillGroups } from "@/data/skills";
+import { areaEvidence, categoryLabels, projects } from "@/data/projects";
+import { skillChips, skillGroups } from "@/data/skills";
+import { knownIcons } from "@/components/Icon";
 
 function isHttpsUrl(value: string): boolean {
   try {
@@ -35,8 +36,61 @@ describe("projects data", () => {
   });
 
   it.each(projects.map((p) => [p.name, p] as const))("%s has well-formed https URLs", (_name, project) => {
-    expect(isHttpsUrl(project.codeUrl)).toBe(true);
+    if (project.codeUrl !== undefined) expect(isHttpsUrl(project.codeUrl)).toBe(true);
     if (project.liveUrl !== undefined) expect(isHttpsUrl(project.liveUrl)).toBe(true);
+  });
+
+  it.each(projects.map((p) => [p.name, p] as const))("%s has valid categories and areas", (_name, project) => {
+    expect(project.categories.length).toBeGreaterThan(0);
+    for (const c of project.categories) expect(Object.keys(categoryLabels)).toContain(c);
+  });
+
+  it("has an existing image file with alt text where an image is set", () => {
+    for (const project of projects) {
+      if (!project.image) continue;
+      expect(fs.existsSync(path.join(process.cwd(), "public", project.image.src))).toBe(true);
+      expect(project.image.alt.trim().length).toBeGreaterThan(5);
+      expect(project.image.width).toBeGreaterThan(0);
+      expect(project.image.height).toBeGreaterThan(0);
+    }
+  });
+
+  it("includes every category in at least one project", () => {
+    for (const c of Object.keys(categoryLabels)) {
+      expect(projects.some((p) => p.categories.includes(c as never))).toBe(true);
+    }
+  });
+
+  it("only lists the live demos that exist", () => {
+    const live = projects.filter((p) => p.liveUrl).map((p) => p.slug).sort();
+    expect(live).toEqual(["nextmeet", "skillora"]);
+  });
+
+  it("area evidence counts never exceed the number of projects", () => {
+    for (const e of areaEvidence()) {
+      expect(e.total).toBe(projects.length);
+      expect(e.count).toBeGreaterThan(0);
+      expect(e.count).toBeLessThanOrEqual(e.total);
+    }
+  });
+
+  it("links only the projects whose repositories are public", () => {
+    const withoutLink = projects.filter((p) => !p.codeUrl).map((p) => p.slug);
+    expect(withoutLink).toEqual(["dsa-cpp"]);
+  });
+
+  it("keeps Zink and NextMeet as separate projects with their own repositories", () => {
+    const zink = projects.find((p) => p.slug === "zink");
+    const next = projects.find((p) => p.slug === "nextmeet");
+    expect(zink?.codeUrl).toMatch(/Zink-Conferencing-Platform$/);
+    expect(next?.codeUrl).toMatch(/Nextmeet$/);
+    expect(zink?.liveUrl).toBeUndefined();
+  });
+
+  it("does not describe the DSA project as TypeScript", () => {
+    const dsa = projects.find((p) => p.slug === "dsa-cpp");
+    expect(dsa?.stack).toEqual(["C++"]);
+    expect(JSON.stringify(dsa)).not.toMatch(/typescript/i);
   });
 
   it("uses unique slugs", () => {
@@ -53,6 +107,12 @@ describe("skills data", () => {
       expect(group.skills.length).toBeGreaterThan(0);
       expect(group.skills.every((s) => s.trim() !== "")).toBe(true);
     }
+  });
+
+  it("has an icon for every skill chip and no duplicate chips", () => {
+    for (const chip of skillChips) expect(knownIcons).toContain(chip.icon);
+    const names = skillChips.map((c) => c.name);
+    expect(new Set(names).size).toBe(names.length);
   });
 
   it("has no duplicate skills inside a group", () => {
@@ -89,7 +149,7 @@ describe("profile data", () => {
 
 describe("placeholder text", () => {
   it("does not appear in any data string", () => {
-    const all = collectStrings([profile, projects, skillGroups, education, experience, navItems]);
+    const all = collectStrings([profile, projects, skillGroups, skillChips, education, experience, navItems]);
     expect(all.length).toBeGreaterThan(0);
     for (const text of all) {
       expect(text).not.toMatch(/lorem/i);
