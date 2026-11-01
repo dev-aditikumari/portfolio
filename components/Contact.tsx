@@ -7,7 +7,7 @@ export function Contact() {
   return (
     <Section id="contact" title="Contact">
       <p className="mb-4 max-w-2xl">
-        The best way to reach me is by email. I read every message.
+        The best way to reach me is by email.
       </p>
       <ul className="space-y-2">
         <li>
